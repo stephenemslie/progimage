@@ -1,0 +1,11 @@
+version: "3.8"
+services:
+  django:
+    init: true
+    build: .
+    volumes:
+      - .:/usr/src/app
+    ports:
+      - "8000:8000"
+    environment:
+      PYTHONBREAKPOINT: ipdb.set_trace
