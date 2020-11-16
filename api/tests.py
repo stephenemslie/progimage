@@ -18,7 +18,7 @@ def get_test_image():
     return image_file
 
 
-class ApiTests(APITestCase):
+class ImageTests(APITestCase):
 
     def test_upload_image_required(self):
         """Test that image field is required"""
