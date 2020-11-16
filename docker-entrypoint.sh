@@ -1,7 +1,8 @@
 #!/bin/bash
 
 if [ "$1" = 'runserver' ]; then
-    exec pipenv run ./manage.py runserver
+    pipenv run ./manage.py migrate
+    exec pipenv run ./manage.py runserver 0:8000
 fi
 
 if [ "$1" = 'test' ]; then
