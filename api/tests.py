@@ -43,3 +43,13 @@ class ApiTests(APITestCase):
         data = {"image": image_file}
         response = self.client.post(url, data)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+    def test_image_uuid(self):
+        """Test that images get a unique uuid"""
+        url = reverse('image-list')
+        uuids = []
+        for i in range(20):
+            image_file = get_test_image()
+            response = self.client.post(url, {"image": image_file})
+            uuids.append(response.data['id'])
+        self.assertEqual(len(set(uuids)), 20)
