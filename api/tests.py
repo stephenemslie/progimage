@@ -63,3 +63,11 @@ class ImageTests(APITestCase):
             self.client.post(url, {"image": image_file})
         response = self.client.get(url)
         self.assertEqual(len(response.data), 20)
+    def test_get_image(self):
+        """Create an image and get it's details"""
+        image_file = get_test_image()
+        response = self.client.post(
+            reverse('image-list'), {"image": image_file})
+        image_id = response.data['id']
+        response = self.client.get(reverse('image-detail', args=(image_id,)))
+        self.assertEqual(response.data['id'], image_id)
