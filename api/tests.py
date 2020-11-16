@@ -80,3 +80,32 @@ class ImageTests(APITestCase):
             reverse('image-list'), {"image": image_file})
         response = self.client.get(reverse('image-detail', args=('bad',)))
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
+    def test_rotate(self):
+        """Test rotating an image 90 degrees clockwise"""
+        image_file = get_test_image()
+        response = self.client.post(
+            reverse('image-list'), {"image": image_file})
+        image_id = response.data['id']
+        url = reverse('image-rotate', args=(image_id,))
+        response = self.client.post(url, {'degrees': 90})
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_rotate_validation(self):
+        """Test rotating an image by an invalid value"""
+        image_file = get_test_image()
+        response = self.client.post(
+            reverse('image-list'), {"image": image_file})
+        image_id = response.data['id']
+        url = reverse('image-rotate', args=(image_id,))
+        response = self.client.post(url, {'degrees': "ninety"})
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+    def test_rotate_missing(self):
+        """Test rotating an image that doesn't exist"""
+        image_file = get_test_image()
+        response = self.client.post(
+            reverse('image-list'), {"image": image_file})
+        url = reverse('image-rotate', args=('bad',))
+        response = self.client.post(url, {'degrees': 90})
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
