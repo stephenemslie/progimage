@@ -35,3 +35,6 @@ There is only one endpoint in the api: `/images/`. This is a restful resource, s
 
 #### delete an image
 `curl -X DELETE http://localhost:8000/images/UUID/`
+
+#### rotate an image
+`curl -d degrees=90 http://localhost:8000/images/UUID/rotate/`
