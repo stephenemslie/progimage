@@ -8,7 +8,7 @@ from rest_framework import status
 class ApiTests(APITestCase):
 
     def test_upload_image_required(self):
-        """Test that uploaded file is a valid image"""
+        """Test that image field is required"""
         url = reverse('image-list')
         response = self.client.post(url, {})
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
