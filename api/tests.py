@@ -1,9 +1,12 @@
+import io
+
 from django.test import TestCase
 from django.urls import reverse
 from django.core.files.uploadedfile import SimpleUploadedFile
 
 from rest_framework.test import APITestCase
 from rest_framework import status
+import PIL
 
 
 class ApiTests(APITestCase):
@@ -24,3 +27,14 @@ class ApiTests(APITestCase):
         response = self.client.post(url, data)
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertTrue("Upload a valid image" in response.data["image"][0])
+
+    def test_upload_valid_image(self):
+        url = reverse('image-list')
+        image = PIL.Image.new('RGB', (100, 100))
+        with io.BytesIO() as f:
+            image.save(f, format='JPEG')
+            image_file = SimpleUploadedFile(
+                "image.jpg", f.getvalue(), content_type="image/jpeg")
+        data = {"image": image_file}
+        response = self.client.post(url, data)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
