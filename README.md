@@ -7,7 +7,7 @@ A sample image processing api built on Django
 With Docker:
 
 ```
-docker-compose up -d
+docker-compose up
 ```
 
 Then open http://localhost:8000/ in your browser to browse the api.
