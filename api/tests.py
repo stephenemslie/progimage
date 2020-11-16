@@ -52,5 +52,6 @@ class ApiTests(APITestCase):
         for i in range(20):
             image_file = get_test_image()
             response = self.client.post(url, {"image": image_file})
+            self.assertEqual(response.status_code, status.HTTP_201_CREATED)
             uuids.append(response.data['id'])
         self.assertEqual(len(set(uuids)), 20)
