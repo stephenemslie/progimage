@@ -9,6 +9,15 @@ from rest_framework import status
 import PIL
 
 
+def get_test_image():
+    image = PIL.Image.new('RGB', (100, 100))
+    with io.BytesIO() as f:
+        image.save(f, format='JPEG')
+        image_file = SimpleUploadedFile(
+            "image.jpg", f.getvalue(), content_type="image/jpeg")
+    return image_file
+
+
 class ApiTests(APITestCase):
 
     def test_upload_image_required(self):
@@ -30,11 +39,7 @@ class ApiTests(APITestCase):
 
     def test_upload_valid_image(self):
         url = reverse('image-list')
-        image = PIL.Image.new('RGB', (100, 100))
-        with io.BytesIO() as f:
-            image.save(f, format='JPEG')
-            image_file = SimpleUploadedFile(
-                "image.jpg", f.getvalue(), content_type="image/jpeg")
+        image_file = get_test_image()
         data = {"image": image_file}
         response = self.client.post(url, data)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
