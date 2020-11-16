@@ -7,6 +7,7 @@ fi
 
 if [ "$1" = 'test' ]; then
     exec pipenv run ./manage.py test
+fi
 
 if [ "$1" = 'bash' ]; then
     pipenv shell
