@@ -38,6 +38,7 @@ class ApiTests(APITestCase):
         self.assertTrue("Upload a valid image" in response.data["image"][0])
 
     def test_upload_valid_image(self):
+        """Test uploading a valid image"""
         url = reverse('image-list')
         image_file = get_test_image()
         data = {"image": image_file}
