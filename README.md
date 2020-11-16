@@ -2,6 +2,14 @@
 
 A sample image processing api built on Django
 
+## Running the tests
+
+With Docker:
+
+```
+docker-compose run --rm django test
+```
+
 ## Running the server
 
 With Docker:
