@@ -19,7 +19,6 @@ export default function ProgImageList(props) {
         return (
           <li>
             <a href={`http://localhost:8000${new URL(image.image).pathname}`}>
-              {" "}
               {image.id}
             </a>
           </li>
