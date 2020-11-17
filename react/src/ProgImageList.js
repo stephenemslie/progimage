@@ -16,7 +16,14 @@ export default function ProgImageList(props) {
   return (
     <ul>
       {images.map(image => {
-        return <li>{image.id}</li>;
+        return (
+          <li>
+            <a href={`http://localhost:8000${new URL(image.image).pathname}`}>
+              {" "}
+              {image.id}
+            </a>
+          </li>
+        );
       })}
     </ul>
   );
