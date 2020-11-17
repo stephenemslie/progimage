@@ -12,3 +12,11 @@ services:
       DATABASE_URL: sqlite:////app/db.sqlite3
       DEBUG: "True"
     command: runserver
+  react:
+    init: true
+    build: ./react
+    volumes:
+      - ./react:/app
+      - /app/node_modules
+    ports:
+      - "3000:3000"
