@@ -7,7 +7,7 @@ async function fetchImageList() {
 }
 
 export default function ProgImageList(props) {
-  const [images, setImages] = React.useState();
+  const [images, setImages] = React.useState([]);
   React.useEffect(() => {
     fetchImageList().then(images => {
       setImages(images);
@@ -15,10 +15,9 @@ export default function ProgImageList(props) {
   }, []);
   return (
     <ul>
-      {images &&
-        images.map(image => {
-          return <li>{image.id}</li>;
-        })}
+      {images.map(image => {
+        return <li>{image.id}</li>;
+      })}
     </ul>
   );
 }
